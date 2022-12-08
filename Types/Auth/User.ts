@@ -7,4 +7,5 @@ export type User = {
   birthAt: string;
   document: string;
   phone: string;
+  image: string;
 };
