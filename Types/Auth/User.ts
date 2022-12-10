@@ -8,4 +8,5 @@ export type User = {
   document: string;
   phone: string;
   image: string;
+  admin: number;
 };

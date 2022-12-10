@@ -1,6 +1,8 @@
 export type MeResponse = {
+  image: string;
   id: string;
   email: string;
+  admin: number;
   createdAt: string;
   updatedAt: string;
   Person: [{

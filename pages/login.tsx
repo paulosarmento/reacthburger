@@ -1,18 +1,18 @@
-import axios from 'axios';
-import { NextPage } from 'next';
-import Link from 'next/link';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import AuthLayout from '../Components/Auth/Layout';
-import { Toast } from '../Components/Toast';
-import { useAuth } from '../Context/AuthContext';
-import { LoginFormData } from '../Types/Auth/LoginFormData';
+import axios from "axios";
+import { NextPage } from "next";
+import Link from "next/link";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import AuthLayout from "../Components/Auth/Layout";
+import { Toast } from "../Components/Toast";
+import { useAuth } from "../Context/AuthContext";
+import { LoginFormData } from "../Types/Auth/LoginFormData";
 
 const PageComponent: NextPage = () => {
   const [formIsLoading, setFormIsLoading] = useState(false);
-  const [toastType, setToastType] = useState<'success' | 'danger'>('danger');
+  const [toastType, setToastType] = useState<"success" | "danger">("danger");
   const [toastIsOpen, setToastIsOpen] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const { register, handleSubmit } = useForm<LoginFormData>();
   const { initAuth, redirectToNextURL } = useAuth();
@@ -34,7 +34,7 @@ const PageComponent: NextPage = () => {
 
   const showErrorToast = (message: string) => {
     setError(message);
-    setToastType('danger');
+    setToastType("danger");
     setToastIsOpen(true);
 
     setTimeout(() => {
@@ -52,13 +52,13 @@ const PageComponent: NextPage = () => {
           type="email"
           placeholder="E-mail"
           required
-          {...register('email')}
+          {...register("email")}
         />
         <input
           type="password"
           placeholder="Senha"
           required
-          {...register('password')}
+          {...register("password")}
         />
 
         <footer>
@@ -66,7 +66,7 @@ const PageComponent: NextPage = () => {
             <a>Esqueceu a senha?</a>
           </Link>
           <button type="submit" disabled={formIsLoading}>
-            {formIsLoading ? 'Enviando' : 'Enviar'}
+            {formIsLoading ? "Enviando" : "Enviar"}
           </button>
         </footer>
       </form>

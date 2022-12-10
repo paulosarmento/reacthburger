@@ -18,12 +18,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const user = {
       id: data.id,
       email: data.email,
+      image: data.image,
       personId: data.Person[0].id,
       name: data.Person[0].name,
       photo: data.Person[0].photo,
       birthAt: data.Person[0].birthAt,
       document: data.Person[0].document,
       phone: data.Person[0].phone,
+      admin: data.admin
     };
 
     req.session.user = user;

@@ -1,12 +1,10 @@
-import type { NextPage } from 'next'
-import { Fragment } from 'react'
-import { Aside } from '../Components/Aside'
-import Carte from '../Components/Carte'
-import { Header } from '../Components/Header'
-import { MetaTitle } from '../Components/Header/MetaTitle'
-import TrayContext from '../Context/TrayContext'
-import AuthContext from '../Context/AuthContext'
-import TrayItemsContext, { useTrayItems } from '../Context/TrayItemsContext'
+import type { NextPage } from "next";
+import { Aside } from "../Components/Aside";
+import Carte from "../Components/Carte";
+import { Header } from "../Components/Header";
+import { MetaTitle } from "../Components/Header/MetaTitle";
+import TrayContext from "../Context/TrayContext";
+import TrayItemsContext from "../Context/TrayItemsContext";
 
 const ComponentPage: NextPage = () => {
   return (
@@ -22,7 +20,7 @@ const ComponentPage: NextPage = () => {
         </TrayItemsContext>
       </TrayContext>
     </>
-  )
-}
+  );
+};
 
-export default ComponentPage
+export default ComponentPage;
