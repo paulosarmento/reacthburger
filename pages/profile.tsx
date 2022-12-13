@@ -13,180 +13,186 @@ import { User } from "../Types/Auth/User";
 import { IMaskInput } from "react-imask";
 
 type FormData = {
-    name: string | undefined;
-    birth_at?: string | undefined;
-    document?: string | undefined;
-    phone?: string | undefined;
-}
+  name: string | undefined;
+  birth_at?: string | undefined;
+  document?: string | undefined;
+  phone?: string | undefined;
+};
 
 type userData = {
-    name?: string;
-    birth_at?: string;
-    document?: string;
-    phone?: string;
-}
+  name?: string;
+  birth_at?: string;
+  document?: string;
+  phone?: string;
+};
 
 type ComponentPageProps = {
-    token: string;
-    user: User;
-}
+  token: string;
+  user: User;
+};
 
 const ComponentPage: NextPage<ComponentPageProps> = () => {
+  const [userData, setUserData] = useState<userData>({});
+  const { token, initAuth } = useAuth();
 
-    const [userData, setUserData] = useState<userData>({});
-    const { token, initAuth } = useAuth();
+  const router = useRouter();
 
-    const router = useRouter()
+  const getUserData = async () => {
+    await axios.get("/api/profile").then(({ data }) => {
+      const userFromDB = {
+        name: data.Person[0].name,
+        birth_at: new Date(data.Person[0].birthAt)
+          .toISOString()
+          .split("T")[0]
+          .split("-")
+          .reverse()
+          .join("/"),
+        document: data.Person[0].document,
+        phone: data.Person[0].phone,
+      };
 
-    const getUserData = async () => {
-
-        await axios.get('/api/profile')
-            .then(({ data }) => {
-
-                const userFromDB = {
-                    name: data.Person[0].name,
-                    birth_at: new Date(data.Person[0].birthAt).toISOString().split('T')[0].split('-').reverse().join('/'),
-                    document: data.Person[0].document,
-                    phone: data.Person[0].phone,
-                }
-
-                setUserData(userFromDB)
-            })
-
-    }
-
-    useEffect(() => {
-        getUserData()
-    }, [])
-
-    useEffect(() => {
-        setValue("name", userData?.name);
-        setValue("birth_at", userData?.birth_at);
-        setValue("document", userData?.document);
-        setValue("phone", userData?.phone);
-
-    }, [userData])
-
-    const [formIsLoading, setFormIsLoading] = useState(false);
-    const [toastType, setToastType] = useState<'success' | 'danger'>('danger');
-    const [toastIsOpen, setToastOpen] = useState(false);
-    const [error, setError] = useState('');
-
-    const { register, handleSubmit, formState: { errors }, clearErrors, setValue, watch } = useForm<FormData>({
-        defaultValues: {
-            name: userData.name,
-            birth_at: userData.birth_at ? userData.birth_at.substring(0, 10) : '',
-            document: userData.document,
-            phone: userData.phone
-
-        }
+      setUserData(userFromDB);
     });
+  };
 
-    const onSubmit: SubmitHandler<FormData> = async (data) => {
+  useEffect(() => {
+    getUserData();
+  }, []);
 
-        await axios.patch<User>(`/api/profile`, {
-            body: data
-        }).then(({ data }) => {
-            setToastType('success');
-            setError('Dados atualizados com sucesso. Você irá ser redirecionado para a página inicial.');
-            setToastOpen(true);
-            initAuth();
-            setTimeout(() => {
-                setToastOpen(false);
-                router.push('/');
-            }, 5000);
-        }).catch((e) => {
-            setToastType('danger');
-            setError('server');
-            setToastOpen(true);
-        });
+  useEffect(() => {
+    setValue("name", userData?.name);
+    setValue("birth_at", userData?.birth_at);
+    setValue("document", userData?.document);
+    setValue("phone", userData?.phone);
+  }, [userData]);
+
+  const [formIsLoading, setFormIsLoading] = useState(false);
+  const [toastType, setToastType] = useState<"success" | "danger">("danger");
+  const [toastIsOpen, setToastOpen] = useState(false);
+  const [error, setError] = useState("");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    clearErrors,
+    setValue,
+    watch,
+  } = useForm<FormData>({
+    defaultValues: {
+      name: userData.name,
+      birth_at: userData.birth_at ? userData.birth_at.substring(0, 10) : "",
+      document: userData.document,
+      phone: userData.phone,
+    },
+  });
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    await axios
+      .patch<User>(`/api/profile`, {
+        body: data,
+      })
+      .then(({ data }) => {
+        setToastType("success");
+        setError(
+          "Dados atualizados com sucesso. Você irá ser redirecionado para a página inicial."
+        );
+        setToastOpen(true);
+        initAuth();
+        setTimeout(() => {
+          setToastOpen(false);
+          router.push("/");
+        }, 5000);
+      })
+      .catch((e) => {
+        setToastType("danger");
+        setError("server");
+        setToastOpen(true);
+      });
+  };
+
+  useEffect(() => {
+    if (Object.keys(errors).length) {
+      setToastType("danger");
+      setToastOpen(true);
+    } else {
+      setToastOpen(false);
     }
+  }, [errors]);
 
-    useEffect(() => {
-
-        if (Object.keys(errors).length) {
-            setToastType('danger');
-            setToastOpen(true);
-        } else {
-            setToastOpen(false);
-        }
-
-    }, [errors]);
-
-
-    return (
-        <>
-            <MetaTitle title="Meus Dados :: HBurger" />
-            <section>
-                <Header />
-                <main>
-                    <header className="page-title">
-                        <h1>Dados <span>Pessoais</span></h1>
-                    </header>
-                    <form id="address-profile" onSubmit={handleSubmit(onSubmit)}>
-                        <div className="field">
-                            <input
-                                type="text"
-                                id="name"
-                                {...register("name", {
-                                    required: "O campo nome é obrigatório."
-                                })}
-                            />
-                            <label htmlFor="name">Nome Completo</label>
-                        </div>
-                        <div className="field">
-                            <IMaskInput mask={'00/00/0000'}
-                                type="text"
-                                id="birth_at"
-                                {...register("birth_at")}
-                                defaultValue={userData.birth_at}
-                                onAccept={(value) => setValue('birth_at', String(value))}
-                            />
-                            <label htmlFor="birth_at">Data de Nascimento</label>
-                        </div>
-                        <div className="fields">
-                            <div className="field">
-                                <IMaskInput mask={'000.000.000-00'}
-                                    type="text"
-                                    id="document"
-                                    {...register("document")}
-                                    defaultValue={userData.document}
-                                    onAccept={(value) => setValue('document', String(value))}
-
-                                />
-                                <label htmlFor="document">CPF</label>
-                            </div>
-                            <div className="field">
-                                <IMaskInput mask={'(00) 00000-0000'}
-                                    type="text"
-                                    id="phone"
-                                    {...register("phone")}
-                                    defaultValue={userData.phone}
-                                    onAccept={(value) => setValue('phone', String(value))}
-                                />
-                                <label htmlFor="phone">Telefone</label>
-                            </div>
-                        </div>
-                        <Toast type={toastType} open={toastIsOpen}>
-                            <p>{error}</p>
-                        </Toast>
-                        <footer>
-                            <button
-                                type="submit"
-                                disabled={formIsLoading}
-                            >
-                                {formIsLoading ? 'Salvando' : 'Salvar'}
-                            </button>
-                        </footer>
-                        <Link href="/">
-                            <a className="btnBack">VOLTAR</a>
-                        </Link>
-                    </form>
-                </main>
-            </section>
-        </>
-    );
-}
+  return (
+    <>
+      <MetaTitle title="Meus Dados :: HBurger" />
+      <section>
+        <Header />
+        <main>
+          <header className="page-title">
+            <h1>
+              Dados <span>Pessoais</span>
+            </h1>
+          </header>
+          <form id="address-profile" onSubmit={handleSubmit(onSubmit)}>
+            <div className="field">
+              <input
+                type="text"
+                id="name"
+                {...register("name", {
+                  required: "O campo nome é obrigatório.",
+                })}
+              />
+              <label htmlFor="name">Nome Completo</label>
+            </div>
+            <div className="field">
+              <IMaskInput
+                mask={"00/00/0000"}
+                type="text"
+                id="birth_at"
+                {...register("birth_at")}
+                defaultValue={userData.birth_at}
+                onAccept={(value) => setValue("birth_at", String(value))}
+              />
+              <label htmlFor="birth_at">Data de Nascimento</label>
+            </div>
+            <div className="fields">
+              <div className="field">
+                <IMaskInput
+                  mask={"000.000.000-00"}
+                  type="text"
+                  id="document"
+                  {...register("document")}
+                  defaultValue={userData.document}
+                  onAccept={(value) => setValue("document", String(value))}
+                />
+                <label htmlFor="document">CPF</label>
+              </div>
+              <div className="field">
+                <IMaskInput
+                  mask={"(00) 00000-0000"}
+                  type="text"
+                  id="phone"
+                  {...register("phone")}
+                  defaultValue={userData.phone}
+                  onAccept={(value) => setValue("phone", String(value))}
+                />
+                <label htmlFor="phone">Telefone</label>
+              </div>
+            </div>
+            <Toast type={toastType} open={toastIsOpen}>
+              <p>{error}</p>
+            </Toast>
+            <footer>
+              <button type="submit" disabled={formIsLoading}>
+                {formIsLoading ? "Salvando" : "Salvar"}
+              </button>
+            </footer>
+            <Link href="/">
+              <a className="btnBack">VOLTAR</a>
+            </Link>
+          </form>
+        </main>
+      </section>
+    </>
+  );
+};
 
 export default ComponentPage;
-
