@@ -43,15 +43,15 @@ const Dashboard: NextPage = () => {
                   {formIsLoading ? "Salvando" : "Salvar"}
                 </button>
               </footer>
-              <Link href="/">
-                <a className="btnBack">VOLTAR</a>
-              </Link>
             </form>
             <form id="ingredients">
               <h2>Adicionar um ingrediente</h2>
               <div className="field">
-                <select id="name">
-                  <option value="" />
+                <select id="select-ingrendient">
+                  <option value="0" selected>Selecione o tipo de ingrediente</option>
+                  <option value="1">Carnes</option>
+                  <option value="2">Pães</option>
+                  <option value="3">Saladas</option>
                 </select>
                 <label htmlFor="name">Qual tipo de ingrediente</label>
               </div>
@@ -76,11 +76,14 @@ const Dashboard: NextPage = () => {
                   {formIsLoading ? "Salvando" : "Salvar"}
                 </button>
               </footer>
-              <Link href="/">
-                <a className="btnBack">VOLTAR</a>
-              </Link>
             </form>
           </div>
+          <div className="btn-back">
+            <Link href="/">
+                  <a className="btnBack">VOLTAR</a>
+            </Link>
+          </div>
+
         </main>
       </section>
     </>
