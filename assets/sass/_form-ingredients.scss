@@ -10,7 +10,7 @@
 }
 
 #ingredients #select-ingrendient {
-  background-image: url(/_next/static/media/arrow-select.9d346510.svg);
+  background-image: url('../images/arrow-select.svg');
   background-position: 97% center;
   background-size: 20px;
   background-repeat: no-repeat;
@@ -19,8 +19,23 @@
   -moz-appearance: none;
   text-indent: 1px;
   text-overflow: '';
-
 }
+
+main:has(.form-ingredients) {
+  overflow-y: scroll;
+}
+
+#form-register select {
+    height: 50px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    border: 0;
+    padding: 0 16px;
+    font-size: 16px;
+    color: #999;
+}
+
 
 @media screen and (max-width:768px) {
   .form-ingredients {
