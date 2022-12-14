@@ -1,16 +1,10 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import { useState } from "react";
-import { IMaskInput } from "react-imask";
 import { HeaderAdmin } from "../Components/HeaderAdmin";
-import { Toast } from "../Components/Toast";
+import Ingredient from "../Components/Ingredient";
+import TypeIngredient from "../Components/TypeIngredients";
 
 const Dashboard: NextPage = () => {
-  const [formIsLoading, setFormIsLoading] = useState(false);
-  const [toastType, setToastType] = useState<"success" | "danger">("danger");
-  const [toastIsOpen, setToastOpen] = useState(false);
-  const [error, setError] = useState("");
-
   return (
     <>
       <section>
@@ -22,68 +16,14 @@ const Dashboard: NextPage = () => {
             </h1>
           </header>
           <div className="form-ingredients">
-            <form id="type-ingredients">
-              <h2>Adicionar um tipo de ingrediente</h2>
-              <div className="field">
-                <input type="text" id="name" />
-                <label htmlFor="name">Nome do Ingrediente</label>
-              </div>
-              <div className="field">
-                <input type="text" id="description-ingredient-type" />
-                <label htmlFor="description-ingredient-type">
-                  Descrição do ingrediente
-                </label>
-              </div>
-
-              <Toast type={toastType} open={toastIsOpen}>
-                <p>{error}</p>
-              </Toast>
-              <footer>
-                <button type="submit" disabled={formIsLoading}>
-                  {formIsLoading ? "Salvando" : "Salvar"}
-                </button>
-              </footer>
-            </form>
-            <form id="ingredients">
-              <h2>Adicionar um ingrediente</h2>
-              <div className="field">
-                <select id="select-ingrendient">
-                  <option value="0" selected>Selecione o tipo de ingrediente</option>
-                  <option value="1">Carnes</option>
-                  <option value="2">Pães</option>
-                  <option value="3">Saladas</option>
-                </select>
-                <label htmlFor="name">Qual tipo de ingrediente</label>
-              </div>
-              <div className="field">
-                <input type="text" id="description-ingredient" />
-                <label htmlFor="description-ingredient">
-                  Descrição do ingrediente
-                </label>
-              </div>
-              <div className="field">
-                <input type="text" id="valor-ingredient" />
-                <label htmlFor="valor-ingredient">
-                  Valor
-                </label>
-              </div>
-
-              <Toast type={toastType} open={toastIsOpen}>
-                <p>{error}</p>
-              </Toast>
-              <footer>
-                <button type="submit" disabled={formIsLoading}>
-                  {formIsLoading ? "Salvando" : "Salvar"}
-                </button>
-              </footer>
-            </form>
+            <TypeIngredient />
+            <Ingredient />
           </div>
           <div className="btn-back">
             <Link href="/">
-                  <a className="btnBack">VOLTAR</a>
+              <a className="btnBack">VOLTAR</a>
             </Link>
           </div>
-
         </main>
       </section>
     </>
