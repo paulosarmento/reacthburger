@@ -1,4 +1,6 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../Context/AuthContext";
 import { Toast } from "../Toast";
 
 const Ingredient = () => {
@@ -6,17 +8,41 @@ const Ingredient = () => {
   const [toastType, setToastType] = useState<"success" | "danger">("danger");
   const [toastIsOpen, setToastOpen] = useState(false);
   const [error, setError] = useState("");
+  const [ingredientsTypes, setIngredientsTypes] = useState<FormData[]>([]);
+  const { token } = useAuth();
+
+  type FormData = {
+    id: number;
+    name: string;
+    description: string;
+  };
+
+  useEffect(() => {
+    axios
+      .get("ingredients/types", {
+        baseURL: process.env.API_URL,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(({ data }) => {
+        setIngredientsTypes(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <form id="ingredients">
       <h2>Adicionar um ingrediente</h2>
       <div className="field">
         <select id="select-ingrendient">
-          <option value="0" selected>
-            Selecione o tipo de ingrediente
-          </option>
-          <option value="1">Carnes</option>
-          <option value="2">Pães</option>
-          <option value="3">Saladas</option>
+          <option value="0">Selecione o tipo de ingrediente</option>
+          {ingredientsTypes.map(({ id, name, description }) => (
+            <option key={id} value={id}>
+              {description}
+            </option>
+          ))}
         </select>
         <label htmlFor="name">Qual tipo de ingrediente</label>
       </div>
