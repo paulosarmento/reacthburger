@@ -2,8 +2,9 @@ import { NextPage } from "next";
 import Link from "next/link";
 import { HeaderAdmin } from "../Components/HeaderAdmin";
 import Ingredient from "../Components/Ingredient";
+import Products from "../Components/Products";
 
-const DashboardIngredient: NextPage = () => {
+const Product: NextPage = () => {
   return (
     <>
       <section>
@@ -11,12 +12,10 @@ const DashboardIngredient: NextPage = () => {
         <main>
           <header className="page-title">
             <h1>
-              Dados dos <span>Ingredientes</span>
+              Dados dos <span>Produto</span>
             </h1>
           </header>
-          {/* <div className="form-ingredients"> */}
-            <Ingredient />
-          {/* </div> */}
+          <Products />
           <div className="btn-back">
             <Link href="/dashboard">
               <a className="btnBack">VOLTAR</a>
@@ -27,4 +26,4 @@ const DashboardIngredient: NextPage = () => {
     </>
   );
 };
-export default DashboardIngredient;
+export default Product;
