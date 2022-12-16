@@ -5,8 +5,6 @@ import { Toast } from "../Toast";
 import { useAuth } from "../../Context/AuthContext";
 import { useRouter } from "next/router";
 
-import { IngredientType } from "../../Types/BurgerType";
-
 type FormData = {
   name: string;
   description: string;
