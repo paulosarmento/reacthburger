@@ -32,7 +32,7 @@ const Ingredient = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(({ data }) => router.push("/dashboardIngredient"))
+      .then(({ data }) => router.push("/"))
       .catch((err) => {
         console.error(err);
       });

@@ -14,14 +14,10 @@ const DashboardIngredient: NextPage = () => {
               Dados dos <span>Ingredientes</span>
             </h1>
           </header>
-          {/* <div className="form-ingredients"> */}
+          <div className="form-ingredients">
             <Ingredient />
-          {/* </div> */}
-          <div className="btn-back">
-            <Link href="/dashboard">
-              <a className="btnBack">VOLTAR</a>
-            </Link>
           </div>
+          
         </main>
       </section>
     </>

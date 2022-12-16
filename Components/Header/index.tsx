@@ -1,4 +1,3 @@
-import LogoRed from "../../assets/images/logo-icon-orange.svg";
 import LogoTextRed from "../../assets/images/logo-text-orange.svg";
 import {HburgerOrange} from "../../Icons"
 import Image from "next/image";
@@ -29,6 +28,15 @@ export const Header = () => {
         </Link>
         <Link href="/orders">
           <a>Seus Pedidos</a>
+        </Link>
+        <Link href="/dashboard">
+          <a>Cadastrar Tipo de ingrediente</a>
+        </Link>
+        <Link href="/dashboardIngredient">
+          <a>Cadastrar Ingrediente</a>
+        </Link>
+        <Link href="/product">
+          <a>Cadastrar Produto</a>
         </Link>
         <Link href="#">
           <a onClick={logout}>Sair</a>

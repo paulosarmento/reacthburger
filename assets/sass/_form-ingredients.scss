@@ -1,3 +1,5 @@
+@use 'components';
+
 .form-ingredients {
   flex-direction: row;
   width: 100%;
@@ -32,6 +34,8 @@
 
 main:has(.form-ingredients) {
   overflow-y: scroll;
+  @include components.scrollbar;
+
 }
 
 #form-register select {

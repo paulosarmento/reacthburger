@@ -1,10 +1,12 @@
-import LogoRed from "../../assets/images/logo-icon-orange.svg";
 import LogoTextRed from "../../assets/images/logo-text-orange.svg";
 import {HburgerOrange} from "../../Icons";
 import Image from "next/image";
 import Link from "next/link";
 
 export const HeaderAdmin = () => {
+
+  
+
   return (
     <header>
       <Link href="/">

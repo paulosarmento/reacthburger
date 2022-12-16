@@ -23,10 +23,6 @@ const TypeIngredient = () => {
 
   const { register, handleSubmit } = useForm<FormData>();
 
-  // const typeIngredientLoad = (date) => {
-  //   axios.get<IngredientType>('/ingredients/types', date, {})
-  // }
-
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
     axios

@@ -1,50 +1,50 @@
-@use 'components';
+@use "components";
 
 #__next {
-    section {
-        main {
-            section {
-                form {
-                    div {
-                        &#alert {
-                            &.error {
-                                @include components.error;
-                                display: none;
-                            }
-                            &.success {
-                                @include components.success;
-                                display: none;    
-                            }
-                        }
-                    }
-                    select{
-                        option {
-                            color: #202626;
-                        }
-                    }
-                }
-                div {
-                    &.paymentProcess {
-                        justify-content: center;
-                        align-items: center;
-                        width: 100%;
-                        height: 100%;
-                        color: #000;
-                        font-size: 30px;
-                    }
-                }
+  section {
+    main {
+      section {
+        form {
+          div {
+            &#alert {
+              &.error {
+                @include components.error;
+                display: none;
+              }
+              &.success {
+                @include components.success;
+                display: none;
+              }
             }
-        }
-        footer {
-            button {
-                &:disabled {
-                    opacity: 0.5;
-                    cursor: not-allowed!important;
-                    &:active {
-                        background-color: inherit;
-                    }
-                }
+          }
+          select {
+            option {
+              color: #202626;
             }
+          }
         }
+        div {
+          &.paymentProcess {
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            color: #000;
+            font-size: 30px;
+          }
+        }
+      }
     }
+    footer {
+      button {
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed !important;
+          &:active {
+            background-color: inherit;
+          }
+        }
+      }
+    }
+  }
 }
