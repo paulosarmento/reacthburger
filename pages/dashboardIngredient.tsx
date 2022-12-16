@@ -1,9 +1,9 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import { HeaderAdmin } from "../Components/HeaderAdmin";
-import TypeIngredient from "../Components/TypeIngredients";
+import Ingredient from "../Components/Ingredient";
 
-const Dashboard: NextPage = () => {
+const DashboardIngredient: NextPage = () => {
   return (
     <>
       <section>
@@ -15,16 +15,11 @@ const Dashboard: NextPage = () => {
             </h1>
           </header>
           <div className="form-ingredients">
-            <TypeIngredient />
+            <Ingredient />
           </div>
           <div className="btn-back">
-            <Link href="/">
+            <Link href="/dashboard">
               <a className="btnBack">VOLTAR</a>
-            </Link>
-          </div>
-          <div className="btn-next">
-            <Link href="/dashboardIngredient">
-              <a className="btnBack">Cadastrar Ingrediente</a>
             </Link>
           </div>
         </main>
@@ -32,5 +27,4 @@ const Dashboard: NextPage = () => {
     </>
   );
 };
-
-export default Dashboard;
+export default DashboardIngredient;

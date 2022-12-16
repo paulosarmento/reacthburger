@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Toast } from "../Toast";
 import { useAuth } from "../../Context/AuthContext";
+import { useRouter } from "next/router";
 
 import { IngredientType } from "../../Types/BurgerType";
 
@@ -17,7 +18,7 @@ const TypeIngredient = () => {
   const [toastIsOpen, setToastOpen] = useState(false);
   const [error, setError] = useState("");
   const [typeIngredient, setTypeIngredient] = useState(); // para passar os tipos de ingredientes cadastrados
-
+  const router = useRouter();
   const { token } = useAuth();
 
   const { register, handleSubmit } = useForm<FormData>();
@@ -35,9 +36,7 @@ const TypeIngredient = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((data) => {
-        console.log(data, { status: 200 });
-      })
+      .then(({ data }) => router.push("/dashboardIngredient"))
       .catch((err) => {
         console.error(err);
       });
