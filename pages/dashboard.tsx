@@ -17,15 +17,17 @@ const Dashboard: NextPage = () => {
           <div className="form-ingredients">
             <TypeIngredient />
           </div>
-          <div className="btn-back">
-            <Link href="/">
-              <a className="btnBack">VOLTAR</a>
-            </Link>
-          </div>
-          <div className="btn-next">
-            <Link href="/dashboardIngredient">
-              <a className="btnBack">Cadastrar Ingrediente</a>
-            </Link>
+          <div className="menu-footer">
+            <div className="btn-back">
+              <Link href="/">
+                <a className="btnBack">VOLTAR</a>
+              </Link>
+            </div>
+            <div className="btn-next">
+              <Link href="/dashboardIngredient">
+                <a className="btnBack">Cadastrar Ingrediente</a>
+              </Link>
+            </div>
           </div>
         </main>
       </section>

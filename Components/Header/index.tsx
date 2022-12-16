@@ -1,6 +1,6 @@
 import LogoRed from "../../assets/images/logo-icon-orange.svg";
 import LogoTextRed from "../../assets/images/logo-text-orange.svg";
-
+import {HburgerOrange} from "../../Icons"
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -15,7 +15,8 @@ export const Header = () => {
     <header>
       <Link href="/">
         <a>
-          <Image src={LogoRed} alt="Logo Icone" id="logo-icon" />
+        
+          <HburgerOrange />
           <Image src={LogoTextRed} alt="Logo Texto" id="logo-text" />
         </a>
       </Link>

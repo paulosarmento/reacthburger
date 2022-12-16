@@ -5,8 +5,17 @@
   justify-content: space-around;
 }
 
+.menu-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 0 16px;
+}
+
 .btn-back .btnBack {
-  margin: 16px auto;
+  margin: 0px auto;
 }
 
 #ingredients #select-ingrendient {
@@ -35,6 +44,8 @@ main:has(.form-ingredients) {
     font-size: 16px;
     color: #999;
 }
+
+
 
 
 @media screen and (max-width:768px) {
